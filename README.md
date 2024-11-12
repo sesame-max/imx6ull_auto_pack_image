@@ -9,6 +9,7 @@
 2. cd 到该仓库
 3. 复制**uboot**、**zImage**、**设备树**到本目录下**source**文件夹，注意将命令中的文件位置替换成自己的文件所在位置，设备树文件要重命名为**fdt.dtb**。
    ```bash
+   cp /ubootDir/u-boot.imx ./source
    cp /zImagedir/zImage ./source
    cp /dtbDir/imx6ull-14x14-emmc-4.3-800x480-c.dtb ./source/fdt.dtb
    ```
