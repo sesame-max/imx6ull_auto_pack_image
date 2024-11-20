@@ -8,9 +8,29 @@
 # fatSize=500
 # ext4Size=500
 
+set -e
+
 ubootSize=$1
 fatSize=$2
 ext4Size=$3
+
+if [ $ubootSize -lt 10 ]
+then 
+    echo "ubootSize is too small!"
+    exit -1
+fi
+
+if [ $fatSize -lt 100 ]
+then 
+    echo "fatSize is too small!"
+    exit -1
+fi
+
+if [ $ext4Size -lt 100 ]
+then 
+    echo "ext4Size is too small!"
+    exit -1
+fi
 
 imageSize=`expr ${ubootSize} + ${fatSize} + 100 + ${ext4Size}`
 
@@ -65,7 +85,7 @@ sudo mount /dev/mapper/${dev:5}p2 ./root/
 #烧录uboot
 sudo dd if=./source/u-boot.imx of=${dev} bs=1024 seek=1 conv=fsync
 ##复制zImage和fdt.dtb
-sudo cp ./source/zImage ./source/fdt.dtb ./boot/
+sudo cp -r ./source/boot/. ./boot/
 #解压rootfs
 sudo tar -xjvf ./source/rootfs.tar.bz2 -C ./root/
 
